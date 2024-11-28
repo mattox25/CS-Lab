@@ -43,8 +43,10 @@ time_signal = time[:noise_co]
 time_noise = time[noise_co:]
 
 # Average peaks of noise
-noise_peaks = noise[find_peaks(noise)[0]]
+noise_peaks_indexes = find_peaks(noise)[0]
+noise_peaks = noise[noise_peaks_indexes]
 noise_peak_average = np.mean(noise_peaks)
+time_noise_peaks = time_noise[noise_peaks_indexes]
 
 # Find signal peaks annd time signal peaks
 signal_peaks_indexes = find_peaks(signal)[0]
@@ -61,9 +63,11 @@ signal_freq = np.mean(1/time_signal_spacing)
 time_diff = np.diff(time_signal_peaks)
 time_std = np.std(time_diff)
 freq_error = time_std/np.mean(time_diff)**2
-print(f"Signal frequency = {signal_freq} +/- {freq_error}")
+print(f"Signal frequency = {2*np.pi*signal_freq} +/- {2*np.pi*freq_error}") # omega =2*pi*f
 
 # Fitting Functions
-params, covariance = curve_fit(exponential, time_signal_peaks, signal_peaks)
-sig_fit = exponential(time_signal_peaks, *params)
-print(f'Damping rate = {-1*params[1]} +/- {covariance[1][1]}')
+params_sig, covariance_sig = curve_fit(exponential, time_signal_peaks, signal_peaks)
+sig_fit = exponential(time_signal_peaks, *params_sig)
+print(f'Damping rate = {-1*params_sig[1]} +/- {covariance_sig[1][1]}')
+
+# params_noise, covariance_noise = curve_fit(linear, time_noise_peaks, noise_peaks)

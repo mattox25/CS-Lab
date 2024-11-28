@@ -272,12 +272,15 @@ def twostream(npart, L, vbeam=2):
 def exponential(x, a, b):
     return a * exp(b * x)
 
+def linear(x, m, c):
+    return m * x + c
+
 ####################################################################
 
 if __name__ == "__main__":
     # Generate initial condition
     # 
-    npart = 1000   
+    npart = 20000   
     if False:
         # 2-stream instability
         L = 100
