@@ -31,6 +31,9 @@ for i in range(1, len(peaks)):
     if peaks[i] > peaks[i-1]:
         noise_peak = peaks[i-1]
         break
+    else:
+        # If the above situation never happens
+        noise_peak = peaks[i]
 
 # Calculate the index at which the signal turns into noise
 noise_co = np.where(firstharmonics == noise_peak)[0][0] # The index cutoff at which noise begins to dominate
@@ -63,7 +66,7 @@ signal_freq = np.mean(1/time_signal_spacing)
 time_diff = np.diff(time_signal_peaks)
 time_std = np.std(time_diff)
 freq_error = time_std/np.mean(time_diff)**2
-print(f"Signal frequency = {2*np.pi*signal_freq} +/- {2*np.pi*freq_error}") # omega =2*pi*f
+print(f"Angular frequency = {2*np.pi*signal_freq} +/- {2*np.pi*freq_error}") # omega =2*pi*f
 
 # Fitting Functions
 params_sig, covariance_sig = curve_fit(exponential, time_signal_peaks, signal_peaks)
