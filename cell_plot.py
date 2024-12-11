@@ -51,3 +51,4 @@ plt.xlabel("Number of Cells")
 plt.ylabel("Noise Level")
 plt.savefig("noise_vs_cells")
 plt.close()
+

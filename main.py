@@ -3,20 +3,22 @@ from epic1d import *
 import time
 import numpy as np
 
-cells = arange(20, 150, 10)
-npart = 5000                                           # Keep fixed for now
+cells = 20
+particles = arange(1000, 21000, 1000)
+npart = len(particles)                                      
 ntimes = 100
-ncells = len(cells)  
+# ncells = len(cells)  
 
 if __name__ == "__main__":                  
     
     # Data lists of interest (simulation time, noise level, frequency and damping rate)
     # noise level, frequency and damping rateis calculated in noise_assess.py
-    harmonic_data = np.zeros((ncells, ntimes))     
+    harmonic_data = np.zeros((npart, ntimes))     
     time_step_data = np.zeros(ntimes)
-    sim_time_data = np.zeros(ncells) # Time data for each run at different cell number
-
-    for i, cell in enumerate(cells):
+    sim_time_data = np.zeros(npart) # Time data for each run at different cell number
+    
+    for i, part in enumerate(particles):
+        
         start_time = time.time()
         if False:
             # 2-stream instability
@@ -26,7 +28,7 @@ if __name__ == "__main__":
         else:
             # Landau damping
             L = 4. * pi
-            pos, vel = landau(npart, L) # Randomises the position and velocity
+            pos, vel = landau(part, L) # Randomises the position and velocity
         
         # Create some output classes
         # Summary stores an array of the first-harmonic amplitude
@@ -35,7 +37,7 @@ if __name__ == "__main__":
         diagnostics_to_run = [s]        # Remove p to get much faster code!
         
         # Run the simulation
-        pos, vel = run(pos, vel, L, cell, 
+        pos, vel = run(pos, vel, L, cells, 
                     out = diagnostics_to_run,           # These are called each output step
                     output_times=linspace(0., 20, ntimes))  # The times to output
         
@@ -44,7 +46,7 @@ if __name__ == "__main__":
         
         end_time = time.time()
         sim_time_data[i] += end_time-start_time
-        print(f'Simulation {i+1} (cells = {cell}) finished in {end_time-start_time}')
+        print(f'Simulation {i+1} (particles = {part}) finished in {end_time-start_time}')
 
     # The time steps are the same for each value of cells, so just keep times to one list!
     time_step_data += s.t

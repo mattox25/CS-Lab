@@ -1,0 +1,39 @@
+import numpy as np
+import matplotlib.pyplot as plt 
+from noise_assess import *
+from main import particles
+
+# Sim time vs cell number
+plt.scatter(particles, sim_times, marker='x')
+plt.xlabel("Number of Particles")
+plt.ylabel("Simlation Times")
+plt.savefig("sim_times_vs_particles")
+plt.close()
+
+# Angular freqs vs cell number
+plt.errorbar(particles, ang_frequencies, ang_frequency_errors, fmt='x', 
+             label='Frequency with errors', ecolor='red', capsize=5)
+plt.xlabel("Number of Particles")
+plt.ylabel("Angular Frequency")
+plt.savefig("ang_freq_vs_particles")
+plt.close()
+
+# damping rates vs cell number
+plt.errorbar(particles, damping_rates, damping_errors, fmt='x', 
+             label='Frequency with errors', ecolor='red', capsize=5)
+plt.xlabel("Number of Particles")
+plt.ylabel("Damping Rate")
+plt.savefig("damping_rate_vs_particles")
+plt.close()
+
+# plt.plot(particles, damping_rates)
+# plt.show()
+
+# noise vs cell number
+plt.errorbar(particles, noise_levels, noise_errors, fmt='x', 
+             label='Frequency with errors', ecolor='red', capsize=5)
+plt.xlabel("Number of Particles")
+plt.ylabel("Noise Level")
+plt.savefig("noise_vs_particles")
+plt.close()
+

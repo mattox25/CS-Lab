@@ -19,7 +19,7 @@ damping_rates = []
 damping_errors = []
 
 # Note find peaks returns a list [array[array we want], {}]
-for i, cell in enumerate(cells):
+for i, part in enumerate(particles):
     firstharmonics = np.array(harmonic_data[i])
     peak_indices = find_peaks(firstharmonics)[0]
 
@@ -73,7 +73,7 @@ for i, cell in enumerate(cells):
     time_std = np.std(time_diff)
     freq_error = time_std/np.mean(time_diff)**2
     #print(f"Angular frequency = {2*np.pi*signal_freq} +/- {2*np.pi*freq_error}") # omega =2*pi*f
-
+    
     # Fitting Functions
     params_sig, covariance_sig = curve_fit(exponential, time_signal_peaks, signal_peaks)
     sig_fit = exponential(time_signal_peaks, *params_sig)
