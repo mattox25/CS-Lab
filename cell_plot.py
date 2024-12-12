@@ -18,8 +18,12 @@ from main import cells
 # plt.savefig("firstharmonics")
 # plt.close()
 
+cell_times = sim_times_data[:,slice]
+print(cell_times)
+print(len(cell_times))
+print(len(cells))
 # Sim time vs cell number
-plt.scatter(cells, sim_times, marker='x')
+plt.scatter(cells, cell_times, marker='x')
 plt.xlabel("Number of Cells")
 plt.ylabel("Simlation Times")
 plt.savefig("sim_times_vs_cells")
@@ -33,6 +37,7 @@ plt.ylabel("Angular Frequency")
 plt.savefig("ang_freq_vs_cells")
 plt.close()
 
+
 # damping rates vs cell number
 plt.errorbar(cells, damping_rates, damping_errors, fmt='x', 
              label='Frequency with errors', ecolor='red', capsize=5)
@@ -40,9 +45,6 @@ plt.xlabel("Number of Cells")
 plt.ylabel("Damping Rate")
 plt.savefig("damping_rate_vs_cells")
 plt.close()
-
-plt.plot(cells, damping_rates)
-plt.show()
 
 # noise vs cell number
 plt.errorbar(cells, noise_levels, noise_errors, fmt='x', 

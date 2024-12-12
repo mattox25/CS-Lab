@@ -237,7 +237,6 @@ class Plot:
             self.vel_plot = plt.plot(vhist, vbins)[0]
         plt.ion()
         plt.show()
-        plt.savefig("twostream")
         
     def __call__(self, pos, vel, ncells, L, t):
         d = calc_density_new(pos, ncells, L)

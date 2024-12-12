@@ -2,9 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from noise_assess import *
 from main import particles
+from epic1d import power
+
+part_times = sim_times_data[slice]
 
 # Sim time vs cell number
-plt.scatter(particles, sim_times, marker='x')
+plt.scatter(particles, part_times, marker='x')
 plt.xlabel("Number of Particles")
 plt.ylabel("Simlation Times")
 plt.savefig("sim_times_vs_particles")
@@ -29,6 +32,8 @@ plt.close()
 # plt.plot(particles, damping_rates)
 # plt.show()
 
+# params, cov = curve_fit(power, particles, noise_levels)
+# plt.plot(particles, particles ** params[1])
 # noise vs cell number
 plt.errorbar(particles, noise_levels, noise_errors, fmt='x', 
              label='Frequency with errors', ecolor='red', capsize=5)
